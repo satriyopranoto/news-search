@@ -91,7 +91,14 @@ Copy the example env file and fill in your configuration:
 cp .env_example .env
 ```
 
-Edit `.env` as needed (API keys, sentiment mode, etc.).
+Edit `.env` as needed. For local Ollama, make sure to use `host.docker.internal`:
+
+```env
+SENTIMENT_MODE=generative
+OPENAI_API_BASE=http://host.docker.internal:11434/v1
+OPENAI_API_KEY=ollama
+MODEL_NAME=llama3.2
+```
 
 ### 3. Run the Container
 
