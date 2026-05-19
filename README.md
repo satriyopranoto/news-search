@@ -68,3 +68,67 @@ You can customize the application behavior by modifying the `.env` file:
    ```
 
 3. Enter a stock ticker symbol (e.g., `AAPL`, `BBCA`) and select a time range, then click "Search" to view the news and their sentiment analysis.
+
+---
+
+## Docker Deployment (Local)
+
+### Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+
+### 1. Build the Docker Image
+
+```bash
+docker build -t news-search .
+```
+
+### 2. Prepare the Environment File
+
+Copy the example env file and fill in your configuration:
+
+```bash
+cp .env_example .env
+```
+
+Edit `.env` as needed (API keys, sentiment mode, etc.).
+
+### 3. Run the Container
+
+```bash
+docker run -d \
+  --name news-search \
+  --env-file .env \
+  -p 5001:5001 \
+  news-search
+```
+
+> **Windows (PowerShell):**
+> ```powershell
+> docker run -d --name news-search --env-file .env -p 5001:5001 news-search
+> ```
+
+The app will be available at **http://localhost:5001**.
+
+### 4. Useful Docker Commands
+
+| Command | Description |
+|---|---|
+| `docker ps` | Check if the container is running |
+| `docker logs news-search` | View application logs |
+| `docker stop news-search` | Stop the container |
+| `docker rm news-search` | Remove the container |
+| `docker build -t news-search .` | Rebuild after code changes |
+
+### Using Ollama (Local LLM) with Docker
+
+If you're using **Generative mode** with a local Ollama instance, make sure Ollama is running on the host machine. In your `.env`, set:
+
+```env
+SENTIMENT_MODE=generative
+OPENAI_API_BASE=http://host.docker.internal:11434/v1
+OPENAI_API_KEY=ollama
+MODEL_NAME=llama3.2
+```
+
+> `host.docker.internal` is Docker's built-in hostname to reach services on the host machine from inside a container.
