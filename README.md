@@ -117,6 +117,50 @@ docker run -d \
 
 The app will be available at **http://localhost:5001**.
 
+---
+## Docker Compose Deployment
+
+An alternative and simpler way to run the app is using **Docker Compose**, which automatically handles container naming, restart policy, and environment variables.
+
+### 1. Prepare the Environment File
+
+```bash
+cp .env_example .env
+```
+
+Edit `.env` as needed (see [Configuration](#configuration-env) section).
+
+### 2. Start the Service
+
+```bash
+docker compose up -d
+```
+
+This will build the image (if needed) and start the container with the following defaults:
+
+| Setting | Value |
+|---------|-------|
+| Container name | `newssearch-app` |
+| Service name | `newssearch-app` |
+| Restart policy | `unless-stopped` (auto-starts when Docker is running) |
+| Port mapping | `5001:5001` |
+| Environment | Loaded from `.env` file |
+
+The app will be available at **http://localhost:5001**.
+
+### 3. Useful Docker Compose Commands
+
+```bash
+docker compose up -d          # Start the service (build + run)
+docker compose down           # Stop and remove the container
+docker compose logs -f        # View live logs
+docker compose build          # Rebuild the image (after code changes)
+docker compose restart        # Restart the service
+docker compose ps             # Check container status
+```
+
+> **Note:** With `restart: unless-stopped`, the container will automatically start whenever Docker Desktop is running — no need to manually run `docker compose up` after every reboot.
+
 ### 4. Useful Docker Commands
 
 | Command | Description |
