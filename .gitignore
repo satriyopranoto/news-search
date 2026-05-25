@@ -17,6 +17,9 @@ __pycache__/
 *.swp
 *.swo
 
+# Hermes logging
+.hermes/
+
 # OS generated files
 .DS_Store
 .DS_Store?
